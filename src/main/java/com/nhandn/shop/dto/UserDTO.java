@@ -22,8 +22,8 @@ public class UserDTO extends AbstractDTO {
     private String userName;
     private Boolean isActive;
     private Boolean isNotLocked;
-    private Long admin;
-    private Long vendor;
+    private Integer admin;
+    private Integer vendor;
     private Date registeredAt;
     private Date lastLogin;
     private String intro;

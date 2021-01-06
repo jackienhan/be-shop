@@ -47,10 +47,10 @@ public class User extends AbstractAuditEntity {
     private Boolean isNotLocked;
 
     @Column(name = "admin", length = 1, nullable = false)
-    private Long admin;
+    private Integer admin;
 
     @Column(name = "vendor", length = 1, nullable = false)
-    private Long vendor;
+    private Integer vendor;
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

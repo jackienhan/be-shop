@@ -16,7 +16,7 @@ public class CartDTO extends AbstractDTO {
     private UserDTO userId;
     private String sessionId;
     private String token;
-    private Long status;
+    private short status;
     private String line1;
     private String line2;
     private String city;

@@ -17,7 +17,7 @@ public class ProductReviewDTO extends AbstractDTO {
     private ProductDTO productId;
     private String title;
     private Long rating;
-    private Long published;
+    private Integer published;
     private Date publishedAt;
     private String content;
 

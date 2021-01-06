@@ -19,7 +19,7 @@ public class CartItemDTO extends AbstractDTO {
     private Float price;
     private Float discount;
     private Long quantity;
-    private Long active;
+    private Boolean active;
     private String content;
 
     @Override

@@ -51,7 +51,7 @@ public class Product extends AbstractAuditEntity {
     private Long quantity;
 
     @Column(name = "shop", length = 1, nullable = false)
-    private Long shop;
+    private Integer shop;
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

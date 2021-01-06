@@ -23,7 +23,7 @@ public class ProductDTO extends AbstractDTO {
     private Float price;
     private Float discount;
     private Float quantity;
-    private Long shop;
+    private Integer shop;
     private Date publishedAt;
     private Date startsAt;
     private Date endsAt;

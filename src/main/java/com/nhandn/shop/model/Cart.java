@@ -19,17 +19,17 @@ public class Cart extends AbstractAuditEntity {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User userId;
 
-    @Column(name = "sessionId", length = 100, nullable = false)
+    @Column(name = "session_id", length = 100, nullable = false)
     private String sessionId;
 
     @Column(name = "token", length = 100, nullable = false)
     private String token;
 
     @Column(name = "status", length = 6, nullable = false)
-    private Long status;
+    private short status;
 
     @Column(name = "line1", length = 50, nullable = false)
     private String line1;

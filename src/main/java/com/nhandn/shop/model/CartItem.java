@@ -22,7 +22,7 @@ public class CartItem extends AbstractAuditEntity {
     private Product productId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "cartId", nullable = false)
+    @JoinColumn(name = "cart_id", nullable = false)
     private Cart cartId;
 
     @Column(name = "sku", length = 100, nullable = false)
@@ -35,10 +35,10 @@ public class CartItem extends AbstractAuditEntity {
     private float discount;
 
     @Column(name = "quantity", length = 6, nullable = false)
-    private Long quantity;
+    private short quantity;
 
     @Column(name = "active", length = 1, nullable = false)
-    private Long active;
+    private Boolean active;
 
     @Column(name = "content", nullable = false)
     private String content;

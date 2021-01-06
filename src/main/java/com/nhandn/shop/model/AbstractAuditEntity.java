@@ -21,13 +21,13 @@ public abstract class AbstractAuditEntity extends AbstractEntity {
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "createdAt", updatable = false)
+  @Column(name = "created_at", updatable = false)
   protected Date createdAt;
 
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "updateAt")
+  @Column(name = "updated_at")
   protected Date updateAt;
 
 }

@@ -29,7 +29,7 @@ public class ProductReview extends AbstractAuditEntity {
     private Long rating;
 
     @Column(name = "published", length = 1, nullable = false)
-    private Long published;
+    private Integer published;
 
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

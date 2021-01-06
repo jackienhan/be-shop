@@ -16,10 +16,10 @@ CREATE TABLE `shop`.`user` (
   `vendor` TINYINT(1) NOT NULL DEFAULT 0,
   `registeredAt` DATETIME NOT NULL,
   `lastLogin` DATETIME NULL DEFAULT NULL,
-  `intro` TINYTEXT NULL DEFAULT NULL,
-  `profile` TEXT NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `intro` VARCHAR(255) NULL DEFAULT NULL,
+  `profile` VARCHAR(1024) NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uq_mobile` (`mobile` ASC),
   UNIQUE INDEX `uq_email` (`email` ASC) );
@@ -28,13 +28,13 @@ CREATE TABLE `shop`.`user` (
   CREATE TABLE `shop`.`role` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(20) NOT NULL,
-  `userId` BIGINT NOT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `user_id` BIGINT NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-   INDEX `idx_role_user` (`userId` ASC),
+   INDEX `idx_role_user` (`user_id` ASC),
   CONSTRAINT `fk_role_user`
-    FOREIGN KEY (`userId`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `shop`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -42,28 +42,28 @@ ENGINE = InnoDB;
 
   CREATE TABLE `shop`.`product` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `userId` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `title` VARCHAR(75) NOT NULL,
   `metaTitle` VARCHAR(100) NULL,
   `slug` VARCHAR(100) NOT NULL,
-  `summary` TINYTEXT NULL,
+  `summary` VARCHAR(255) NULL,
   `type` SMALLINT(6) NOT NULL DEFAULT 0,
   `sku` VARCHAR(100) NOT NULL,
   `price` FLOAT NOT NULL DEFAULT 0,
   `discount` FLOAT NOT NULL DEFAULT 0,
   `quantity` SMALLINT(6) NOT NULL DEFAULT 0,
   `shop` TINYINT(1) NOT NULL DEFAULT 0,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   `publishedAt` DATETIME NULL DEFAULT NULL,
   `startsAt` DATETIME NULL DEFAULT NULL,
   `endsAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uq_slug` (`slug` ASC),
-  INDEX `idx_product_user` (`userId` ASC),
+  INDEX `idx_product_user` (`user_id` ASC),
   CONSTRAINT `fk_product_user`
-    FOREIGN KEY (`userId`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `shop`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
@@ -73,9 +73,9 @@ CREATE TABLE `shop`.`product_meta` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `productId` BIGINT NOT NULL,
   `key` VARCHAR(50) NOT NULL,
-  `content` TEXT NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `idx_meta_product` (`productId` ASC),
   UNIQUE INDEX `uq_product_meta` (`productId` ASC, `key` ASC),
@@ -94,9 +94,9 @@ CREATE TABLE `shop`.`product_review` (
   `rating` SMALLINT(6) NOT NULL DEFAULT 0,
   `published` TINYINT(1) NOT NULL DEFAULT 0,
   `publishedAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `idx_review_product` (`productId` ASC),
   CONSTRAINT `fk_review_product`
@@ -110,9 +110,9 @@ CREATE TABLE `shop`.`category` (
   `title` VARCHAR(75) NOT NULL,
   `metaTitle` VARCHAR(100) NULL DEFAULT NULL,
   `slug` VARCHAR(100) NOT NULL,
-  `content` TEXT NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`));
 
 
@@ -138,9 +138,9 @@ CREATE TABLE `shop`.`product_category` (
   `title` VARCHAR(75) NOT NULL,
   `metaTitle` VARCHAR(100) NULL DEFAULT NULL,
   `slug` VARCHAR(100) NOT NULL,
-  `content` TEXT NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`));
 
 CREATE TABLE `shop`.`product_tag` (
@@ -162,8 +162,8 @@ CREATE TABLE `shop`.`product_tag` (
 
  CREATE TABLE `shop`.`cart` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `userId` BIGINT NULL DEFAULT NULL,
-  `sessionId` VARCHAR(100) NOT NULL,
+  `user_id` BIGINT NULL DEFAULT NULL,
+  `session_id` VARCHAR(100) NOT NULL,
   `token` VARCHAR(100) NOT NULL,
   `status` SMALLINT(6) NOT NULL DEFAULT 0,
   `line1` VARCHAR(50) NULL DEFAULT NULL,
@@ -171,13 +171,13 @@ CREATE TABLE `shop`.`product_tag` (
   `city` VARCHAR(50) NULL DEFAULT NULL,
   `province` VARCHAR(50) NULL DEFAULT NULL,
   `country` VARCHAR(50) NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `idx_cart_user` (`userId` ASC),
+  INDEX `idx_cart_user` (`user_id` ASC),
   CONSTRAINT `fk_cart_user`
-    FOREIGN KEY (`userId`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `shop`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
@@ -185,15 +185,15 @@ CREATE TABLE `shop`.`product_tag` (
 CREATE TABLE `shop`.`cart_item` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `productId` BIGINT NOT NULL,
-  `cartId` BIGINT NOT NULL,
+  `cart_id` BIGINT NOT NULL,
   `sku` VARCHAR(100) NOT NULL,
   `price` FLOAT NOT NULL DEFAULT 0,
   `discount` FLOAT NOT NULL DEFAULT 0,
   `quantity` SMALLINT(6) NOT NULL DEFAULT 0,
   `active` TINYINT(1) NOT NULL DEFAULT 0,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `idx_cart_item_product` (`productId` ASC),
   CONSTRAINT `fk_cart_item_product`
@@ -203,17 +203,17 @@ CREATE TABLE `shop`.`cart_item` (
     ON UPDATE NO ACTION);
 
 ALTER TABLE `shop`.`cart_item`
-ADD INDEX `idx_cart_item_cart` (`cartId` ASC);
+ADD INDEX `idx_cart_item_cart` (`cart_id` ASC);
 ALTER TABLE `shop`.`cart_item`
 ADD CONSTRAINT `fk_cart_item_cart`
-  FOREIGN KEY (`cartId`)
+  FOREIGN KEY (`cart_id`)
   REFERENCES `shop`.`cart` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
 CREATE TABLE `shop`.`t_order` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `userId` BIGINT NULL DEFAULT NULL,
+  `user_id` BIGINT NULL DEFAULT NULL,
   `sessionId` VARCHAR(100) NOT NULL,
   `token` VARCHAR(100) NOT NULL,
   `status` SMALLINT(6) NOT NULL DEFAULT 0,
@@ -230,13 +230,13 @@ CREATE TABLE `shop`.`t_order` (
   `city` VARCHAR(50) NULL DEFAULT NULL,
   `province` VARCHAR(50) NULL DEFAULT NULL,
   `country` VARCHAR(50) NULL DEFAULT NULL,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `idx_order_user` (`userId` ASC),
+  INDEX `idx_order_user` (`user_id` ASC),
   CONSTRAINT `fk_order_user`
-    FOREIGN KEY (`userId`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `shop`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
@@ -249,9 +249,9 @@ CREATE TABLE `shop`.`order_item` (
   `price` FLOAT NOT NULL DEFAULT 0,
   `discount` FLOAT NOT NULL DEFAULT 0,
   `quantity` SMALLINT(6) NOT NULL DEFAULT 0,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX `idx_order_item_product` (`productId` ASC),
   CONSTRAINT `fk_order_item_product`
@@ -271,19 +271,19 @@ ADD CONSTRAINT `fk_order_item_order`
 
 CREATE TABLE `shop`.`transaction` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `userId` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `orderId` BIGINT NOT NULL,
   `code` VARCHAR(100) NOT NULL,
   `type` SMALLINT(6) NOT NULL DEFAULT 0,
   `mode` SMALLINT(6) NOT NULL DEFAULT 0,
   `status` SMALLINT(6) NOT NULL DEFAULT 0,
-  `createdAt` DATETIME NOT NULL,
-  `updatedAt` DATETIME NULL DEFAULT NULL,
-  `content` TEXT NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
+  `content` VARCHAR(1024) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  INDEX `idx_transaction_user` (`userId` ASC),
+  INDEX `idx_transaction_user` (`user_id` ASC),
   CONSTRAINT `fk_transaction_user`
-    FOREIGN KEY (`userId`)
+    FOREIGN KEY (`user_id`)
     REFERENCES `shop`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
